@@ -26,7 +26,7 @@
         .columns
           .column
             .field
-              canvas.tetriscanvas(:height="canvasHeight" :width="canvasWidth")
+              canvas(ref="tetrisCanvas" :height="canvasHeight" :width="canvasWidth")
           .column
             .field
               textarea.textarea(placeholder="your code here!!" v-model="code")
@@ -55,7 +55,8 @@
         p brainfuckのように内部的に無限長のint32配列を持っており、それを指すポインタPがある。最初はすべて0で初期化されており、0番番地を差している。
         p 高さ20を超えてしまった場合、テトリスが終了するのでプログラムも(正常)終了する。
         p 演算結果はint32の変数Rに格納される。
-        p テトリスを消すと通常のテトリスで加算される得点がRに格納される。(例:1ライン削除でR=100)
+        p テトリスを消すと通常のテトリスで加算される得点がRに格納される。(nライン削除でR=100*n)
+        p 通常のテトリスと異なり、(簡単のため)テトリミノは全て「IJSLOT」の形で左上から開始する。
         p その後削除されたテトリミノの左上から順に命令を実行する。一番上の行を左から実行し終えたら次の行を実行...という流れ。
         ul
           li X:Nop
@@ -85,8 +86,8 @@ export default Vue.extend({
   data() {
     return {
       page: "home",
-      canvasWidth: 1080,
-      canvasHeight: 720,
+      canvasWidth: 640,
+      canvasHeight: 640,
       code: "",
       stdin: "",
       stdout: "",
@@ -96,17 +97,63 @@ export default Vue.extend({
     };
   },
   methods: {
+    drawConst(ctx: CanvasRenderingContext2D) {
+      ctx.font = `30px Menlo, "Courier New", Consolas, monospace`;
+      // 4x4
+      // 0123
+      // 4567
+      // 89ab
+      const tiles: any = {
+        I: { 0: "I", 4: "X", 8: "X", 12: "=" },
+        L: { 0: "L", 4: "X", 8: "X", 9: "M" },
+        J: { 1: "J", 5: "X", 9: "X", 8: "/" },
+        Z: { 0: "Z", 1: "X", 5: "X", 6: "B" },
+        S: { 2: "S", 1: "X", 5: "X", 4: "P" },
+        O: { 0: "O", 4: "X", 5: "*", 1: "X" },
+        T: { 0: "+", 1: "X", 2: "X", 5: "-" }
+      };
+      let i = 0;
+      ctx.strokeStyle = "gray";
+      ctx.fillStyle = "gray";
+      for (let key in tiles) {
+        for (let num in tiles[key]) {
+          let n = parseInt(num);
+          let x = (n % 4) * 35;
+          let y = Math.floor(n / 4) * 35;
+          console.log([n, x, y]);
+          let w2 = i < 4 ? 0 : 100;
+          let h2 = i < 4 ? 160 * i : 160 * (i - 4);
+          ctx.strokeRect(380 + x + w2, 30 + h2 + y, 30, 30);
+          let str = tiles[key][num];
+          if (str !== "X")
+            ctx.fillText(str, 380 + x + w2 + 5, 30 + h2 + y + 25);
+        }
+        i++;
+      }
+      ctx.strokeRect(360, 10, 240, 20 + 30 * 20);
+    },
     draw() {
-      let anyCanvas: any = this.$el.getElementsByClassName("tetriscanvas");
-      if (!anyCanvas || !anyCanvas[0]) return;
-      let canvas: HTMLCanvasElement = anyCanvas[0];
+      let anyCanvas: any = this.$refs.tetrisCanvas;
+      if (!anyCanvas) return;
+      let canvas: HTMLCanvasElement = anyCanvas;
       let ctx = canvas.getContext("2d");
       if (ctx === null) return;
-      ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-      ctx.fillStyle = "rgb(200,0,0)";
-      ctx.fillRect(10, 10, 55, 50);
-      ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
-      ctx.fillRect(30, 30, 55, 50);
+      let w = this.canvasWidth;
+      let h = this.canvasHeight;
+      ctx.clearRect(0, 0, w, h);
+      this.drawConst(ctx);
+      // ctx.shadowColor = "#ccc";
+      // ctx.shadowBlur = 20;
+      // ctx.lineJoin = "bevel";
+      // ctx.lineWidth = 8;
+      ctx.strokeStyle = "gray";
+      ctx.strokeRect(10, 10, 20 + 30 * 10, 20 + 30 * 20);
+      ctx.fillStyle = "#181818";
+      for (let x = 0; x < 10; x++) {
+        for (let y = 0; y < 20; y++) {
+          ctx.fillRect(20 + 30 * x, 20 + 30 * y, 27, 27);
+        }
+      }
     }
   },
   watch: {
@@ -128,7 +175,7 @@ export default Vue.extend({
   font-size: 20px;
 }
 textarea {
-  font-family: "monospace";
+  font-family: "Menlo", "Courier New", Consolas, monospace;
 }
 canvas {
   background: black;
