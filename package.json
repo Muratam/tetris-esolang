@@ -1,0 +1,28 @@
+{
+  "name": "tetris-esolang",
+  "version": "0.7.2",
+  "license": "MIT",
+  "author": "murata <murata@kmc.gr.jp> (https://muratam.github.io)",
+  "description": "tetris esolang",
+  "scripts": {
+    "build": "webpack --mode production",
+    "watch": "webpack --watch"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.121",
+    "@types/node": "^11.9.4",
+    "ts-loader": "^5.3.3",
+    "ts-node": "^8.0.2",
+    "tslint": "^5.12.1",
+    "typedoc": "^0.14.2",
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.2.3",
+    "xterm": "^3.13.0"
+  },
+  "dependencies": {
+    "css-loader": "^2.1.0",
+    "imports-loader": "^0.8.0",
+    "style-loader": "^0.23.1",
+    "typescript": "^3.3.3"
+  }
+}
