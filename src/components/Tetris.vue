@@ -26,15 +26,15 @@
         .columns
           .column
             .field
-              textarea.textarea(placeholder="your code here!!" v-model="code")
-            .field
-              textarea.textarea(placeholder="input")
-            .field
-              textarea.textarea(placeholder="output" disabled)
+              canvas.tetriscanvas(:height="canvasHeight" :width="canvasWidth")
           .column
             .field
-              textarea.textarea(placeholder="やっていき" disabled)
-    .section(v-if="page==='specification'")
+              textarea.textarea(placeholder="your code here!!" v-model="code")
+        .field
+          textarea.textarea(placeholder="input" v-model="stdin")
+        .field
+          textarea.textarea(placeholder="output" disabled v-model="stdout")
+    .section(v-if="page==='specification'||page==='home'")
       .content
         h2 BNF
         pre {{tetrisbnf}}
@@ -75,82 +75,66 @@
         pre {{exampleCode}}
         h2 example with comment
         pre {{exampleCodeWithComment}}
-
         //- input.input(v-model="name" type="text")
-        //- h1 TetrisComponent
-        //- .greeting Tetris {{name}}{{exclamationMarks}}
-        //- button(@click="decrement") -
-        //- button(@click="increment") +
-        //- input.input(v-model="name" type="text")
-        //- input.input(v-model="name" type="text")
-        //- input.input(v-model="name" type="text")
-
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import { tetrisBNF, exampleCode, exampleCodeWithComment } from "../staticcode";
 export default Vue.extend({
-  // props: [],
   data() {
     return {
-      name: "World",
       page: "home",
-      enthusiasm: 6,
-      tetrisbnf: `<program>    ::= <statements>
-<statements> ::= <statement> "\\n" | <statements>
-<statement>  ::= <tet-move> | <comment> | <label>
-<tet-move>   ::= <tetris> <use-order><move>
-<comment>    ::= /^#.*/
-<label>      ::= /-?[0-9]+:/
-<tetris>     ::= /[ILJZSOT]/
-<move>       ::= /[><^VAB]*/
-<use-order>  ::= "." | ":"`,
-      exampleCode: `# EOFで止まらないcatプログラム例
-100:
-I.A>>>>>>>>>>>>
-I.A>>>>>>>>>>>>
-O:A>>>>>>>>>>>><<<<
-I:A<<<<<<<<<<<<<<
-J:B<<<<<<<<<<<
-Z:A<<<<<<<<<<<>>>>`,
-      exampleCodeWithComment: `100:
-# 何も命令を実行しない空のIミノを右端に回転させて二段配置
-I.A>>>>>>>>>>>>
-I.A>>>>>>>>>>>>
-# 「OX*X」と書かれているOミノを中央に配置
-O:A>>>>>>>>>>>><<<<
-#  「IXX=」と書かれているIミノを横向きに配置して実行。
-# 最下層「IXX=OXXXXX」が実行されて、標準入力１文字をそのまま標準出力する。その後最下層は「____X*XXXX」になる。
-I:A<<<<<<<<<<<<<<
-# 「JXX/」と書かれているJミノを横向きに配置して左端に配置。最下層は「JXX_X*XXXX」になる。
-J:B<<<<<<<<<<<
-# 「ZXXB」と書かれているZミノを隙間に配置して実行させる。実行する最下層は「JXXBX*XXXX」。一段消えるのでRに100点が入り、J命令でラベルR=100にジャンプ。B命令でミノはすべて消えるため問題なくループできる。
-Z:A<<<<<<<<<<<>>>>`
+      canvasWidth: 1080,
+      canvasHeight: 720,
+      code: "",
+      stdin: "",
+      stdout: "",
+      tetrisbnf: tetrisBNF,
+      exampleCode: exampleCode,
+      exampleCodeWithComment: exampleCodeWithComment
     };
   },
   methods: {
-    increment() {
-      this.enthusiasm++;
-    },
-    decrement() {
-      if (this.enthusiasm > 1) {
-        this.enthusiasm--;
-      }
+    draw() {
+      let anyCanvas: any = this.$el.getElementsByClassName("tetriscanvas");
+      if (!anyCanvas || !anyCanvas[0]) return;
+      let canvas: HTMLCanvasElement = anyCanvas[0];
+      let ctx = canvas.getContext("2d");
+      if (ctx === null) return;
+      ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+      ctx.fillStyle = "rgb(200,0,0)";
+      ctx.fillRect(10, 10, 55, 50);
+      ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+      ctx.fillRect(30, 30, 55, 50);
     }
   },
+  watch: {
+    page(val) {
+      this.$nextTick(this.draw);
+    }
+  },
+  mounted() {},
   computed: {
     exclamationMarks(): string {
-      return Array(this.enthusiasm + 1).join("!");
+      return "";
     }
   }
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .greeting {
   font-size: 20px;
 }
 textarea {
   font-family: "monospace";
+}
+canvas {
+  background: black;
+  border-color: #dbdbdb;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
+  width: 100%;
 }
 </style>
