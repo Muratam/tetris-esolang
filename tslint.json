@@ -1,16 +1,23 @@
 {
-  "defaultSeverity": "error",
-  "extends": [
-    "tslint:recommended"
-  ],
-  "jsRules": {},
-  "rules": {
-    "semicolon": true,
-    "object-literal-shorthand": false,
-    "max-classes-per-file": false,
-    "no-console": false,
-    "forin": false,
-    "no-string-literal": false
-  },
-  "rulesDirectory": []
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rules": {
+        "quotemark": [
+            true,
+            "single"
+        ],
+        "indent": [
+            true
+        ],
+        "interface-name": [
+            false
+        ],
+        "arrow-parens": false,
+        // Pending fix for shorthand property names.
+        "object-literal-sort-keys": false
+    },
+    "rulesDirectory": []
 }

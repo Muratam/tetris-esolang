@@ -1,27 +1,37 @@
 {
-  "name": "tetris-esolang",
-  "version": "0.7.2",
-  "license": "MIT",
-  "author": "murata <murata@kmc.gr.jp> (https://muratam.github.io)",
-  "description": "tetris esolang",
+  "name": "typescript-vue-starter",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
     "watch": "webpack --watch"
   },
-  "devDependencies": {
-    "@types/lodash": "^4.14.121",
-    "@types/node": "^11.9.4",
-    "ts-loader": "^5.3.3",
-    "ts-node": "^8.0.2",
-    "tslint": "^5.12.1",
-    "typedoc": "^0.14.2",
-    "webpack": "^4.29.3",
-    "webpack-cli": "^3.2.3"
+  "keywords": [],
+  "author": {
+    "name": "Daniel Rosenwasser",
+    "url": "https://github.com/DanielRosenwasser"
   },
+  "license": "Apache-2.0",
   "dependencies": {
-    "css-loader": "^2.1.0",
-    "imports-loader": "^0.8.0",
+    "vue": "^2.5.2",
+    "vue-class-component": "^6.0.0",
+    "vue-property-decorator": "^6.0.0",
+    "vue-router": "^3.0.1"
+  },
+  "devDependencies": {
+    "bulma": "^0.7.4",
+    "css-loader": "^0.28.11",
+    "node-sass": "^4.12.0",
+    "pug": "^2.0.3",
+    "pug-plain-loader": "^1.0.0",
+    "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
-    "typescript": "^3.3.3"
+    "ts-loader": "^2.0.3",
+    "typescript": "^2.7.2",
+    "vue-loader": "^12.0.3",
+    "vue-template-compiler": "^2.5.2",
+    "webpack": "^2.5.0"
   }
 }

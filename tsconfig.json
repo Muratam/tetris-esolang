@@ -1,12 +1,14 @@
 {
-  "compilerOptions": {
-    "sourceMap": true,
-    "target": "es2018",
-    "module": "commonjs",
-    "lib": [
-      "webworker",
-      "es2018",
-      "dom"
+    "compilerOptions": {
+        "outDir": "./built/",
+        "sourceMap": true,
+        "strict": true,
+        "module": "es2015",
+        "moduleResolution": "node",
+        "target": "es5",
+        "experimentalDecorators": true
+    },
+    "include": [
+        "./src/**/*"
     ]
-  }
 }
