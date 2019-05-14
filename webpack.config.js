@@ -1,12 +1,13 @@
 
-var path = require('path')
-var webpack = require('webpack')
+const path = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
+    publicPath: '/',
     filename: 'build.js'
   },
   module: {
@@ -36,6 +37,10 @@ module.exports = {
         loader: 'pug-plain-loader'
       },
       {
+        test: /\.html$/,
+        loader: "html-loader"
+      },
+      {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         options: {
@@ -44,6 +49,11 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./src/index.html"
+    })
+  ],
   resolve: {
     extensions: ['.ts', '.js', '.vue', '.json'],
     alias: {
