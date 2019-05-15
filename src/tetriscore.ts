@@ -193,7 +193,6 @@ export class TetrisInterpreter {
     this.stateMessage += `}\nlabel:${this.label === Infinity ? "?" : this.label
       }\n`;
     for (let c of executeCode) {
-      console.log([c, r]);
       if (c === "I") {
         if (this.stdinpointer >= this.stdin.length) r = -1;
         else r = this.stdin[this.stdinpointer++].charCodeAt(0);
