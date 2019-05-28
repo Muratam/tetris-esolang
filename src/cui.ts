@@ -1,6 +1,6 @@
-export type OperationLine = { blockType: string, operation: string, useOrder: boolean };
-export type CodeBlock = { [key: number]: Array<OperationLine> };
-export const tetriminos: any = {
+type OperationLine = { blockType: string, operation: string, useOrder: boolean };
+type CodeBlock = { [key: number]: Array<OperationLine> };
+const tetriminos: any = {
   I: { 7: "I", 6: "X", 5: "X", 4: "=" },
   O: { 1: "O", 5: "X", 6: "*", 2: "X" },
   L: { 4: "L", 5: "X", 6: "X", 2: "M" },
@@ -44,7 +44,8 @@ const tets = [
   },
 ];
 
-export class TetrisInterpreter {
+
+class TetrisInterpreter {
   state: Array<Array<string>>;
   finished: boolean;
   errorMessage: string;
@@ -251,3 +252,15 @@ export class TetrisInterpreter {
     return output;
   }
 }
+
+
+
+if (process.argv.length <= 2) {
+  process.stderr.write("ERROR: no input file\n");
+  process.exit(1);
+}
+const fs = require('fs')
+const stdin = "" + fs.readFileSync(0);
+const code = "" + fs.readFileSync(process.argv[2]);
+const tet = new TetrisInterpreter(code, stdin);
+while (!tet.finished) process.stdout.write(tet.execute1Step());
