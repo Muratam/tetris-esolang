@@ -91,7 +91,7 @@ export class TetrisInterpreter {
       if (!code) continue;
       let lastNumber = numbers[numbers.length - 1];
       if (!result[lastNumber]) result[lastNumber] = [];
-      if (code.match(/^\d+:/)) {
+      if (code.match(/^-?\d+:/)) {
         let parsed = parseInt(code);
         this.assert(parsed !== NaN, lineNumber, `ラベルの数値をパース出来ません`);
         this.assert(result[parsed] === undefined, lineNumber, "ラベルが重複しています");
@@ -188,16 +188,12 @@ export class TetrisInterpreter {
     }
     let executeCode = codes.reverse().join("").replace(/ /g, "");
     this.counter++;
-    this.stateMessage = `execute [${executeCode}]\nP:{`;
-    for (let k in this.store) this.stateMessage += `${k}:${this.store[k]},`;
-    this.stateMessage += `}\nlabel:${this.label === Infinity ? "?" : this.label
-      }\n`;
     for (let c of executeCode) {
       if (c === "I") {
         if (this.stdinpointer >= this.stdin.length) r = -1;
         else r = this.stdin[this.stdinpointer++].charCodeAt(0);
       } else if (c === "O") {
-        output += String.fromCharCode(r);
+        if (r >= 0) output += String.fromCharCode(r);
       } else if (c === "J") {
         if (this.code[r]) {
           this.counter = 0;
@@ -249,6 +245,10 @@ export class TetrisInterpreter {
         console.assert(false, "invalid operation reducing")
       }
     }
+    this.stateMessage = `execute [${executeCode}]\nP:{`;
+    for (let k in this.store) this.stateMessage += `${k}:${this.store[k]},`;
+    this.stateMessage += `}\nlabel:${this.label === Infinity ? "?" : this.label
+      }\n`;
     return output;
   }
 }

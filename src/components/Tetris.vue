@@ -25,14 +25,6 @@
         h2 Try Tetris Esolang Now !!
         .field.is-grouped
           .control
-            a.button(@click="execute1Step")
-              .icon: i.fas.fa-play
-              p Execute 1 Step
-          .control
-            a.button(@click="executeAllStep")
-              .icon: i.fas.fa-angle-double-right
-              p Execute 1000 Steps
-          .control
             a.button(@click="trySample")
               .icon: i.fas.fa-code
               p Try Sample
@@ -41,6 +33,15 @@
             .field
               canvas(ref="tetrisCanvas" :height="canvasHeight" :width="canvasWidth")
           .column
+            .field.is-grouped
+              .control
+                a.button(@click="execute1Step")
+                  .icon: i.fas.fa-play
+                  p Execute 1 Step
+              .control
+                a.button(@click="executeAllStep")
+                  .icon: i.fas.fa-angle-double-right
+                  p Execute 1000 Steps
             .field
               textarea.textarea(ref="codeTextarea" placeholder="your code here!!" v-model="code")
             .field
@@ -91,16 +92,16 @@
     .section(v-if="page==='example'")
       .content
         h2 example
-        pre {{exampleCode}}
-        h2 example with comment
-        pre {{exampleCodeWithComment}}
+        div(v-for="example in exampleCodes")
+          pre {{example}}
+          hr
         //- input.input(v-model="name" type="text")
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import { TetrisInterpreter, tetriminos } from "../tetriscore";
-import { tetrisBNF, exampleCode, exampleCodeWithComment } from "../staticcode";
+import { tetrisBNF, exampleCodes } from "../staticcode";
 export default Vue.extend({
   data() {
     return {
@@ -114,13 +115,12 @@ export default Vue.extend({
       debugMessage: "",
       core: new TetrisInterpreter("", ""),
       tetrisbnf: tetrisBNF,
-      exampleCode: exampleCode,
-      exampleCodeWithComment: exampleCodeWithComment
+      exampleCodes: exampleCodes
     };
   },
   methods: {
     trySample() {
-      this.code = exampleCode;
+      this.code = exampleCodes[0];
       this.stdin = "sample cat program input";
     },
     executeAllStep() {
@@ -205,9 +205,9 @@ export default Vue.extend({
       this.stdout = "";
       this.draw([]);
       if (!val) return;
-      let anyTextArea: any = this.$refs.codeTextarea;
-      let textArea: HTMLTextAreaElement = anyTextArea;
-      textArea.rows = Math.max(3, val.split("\n").length);
+      // let anyTextArea: any = this.$refs.codeTextarea;
+      // let textArea: HTMLTextAreaElement = anyTextArea;
+      // textArea.rows = Math.max(3, val.split("\n").length);
     }
   }
 });
