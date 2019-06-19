@@ -86,7 +86,7 @@
           li P: P += R. ポインタを動かす。Pointer.
           li L: R = A[P] .Load.
           li S: A[P] = R. Store.
-          li +-*/%= : よくある二項演算 (=は宇宙船演算)。R = R op A[P]
+          li +-*/= : よくある二項演算 (=は宇宙船演算)。R = R op A[P]
           li M: R = -R . Minus.
           li B: テトリスフィールドをすべて削除し、以降の命令は実行されない。Bomb.
     .section(v-if="page==='example'")
