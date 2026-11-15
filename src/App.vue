@@ -59,6 +59,7 @@ const tabs: { id: Page; label: string }[] = [
           :key="t.id"
           type="button"
           class="tab"
+          :data-label="t.label"
           :aria-current="app.page === t.id ? 'page' : undefined"
           @click="app.page = t.id"
         >
@@ -158,6 +159,23 @@ const tabs: { id: Page; label: string }[] = [
   white-space: nowrap;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+}
+/* 選ぶと太字になって幅が変わり、右のタブがずれるので、太字の幅を先に取っておく（見えない ::after） */
+.tab {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.tab::after {
+  content: attr(data-label);
+  content: attr(data-label) / "";
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  font-weight: 600;
+  pointer-events: none;
+  user-select: none;
 }
 .tab:hover {
   color: var(--ink);

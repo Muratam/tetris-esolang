@@ -38,6 +38,10 @@
 * {
   box-sizing: border-box;
 }
+/* ページの高さでスクロールバーが出たり消えたりして横幅が変わり、帯と本文が左右にずれるのを防ぐ（スクロールバーの場所を常に取る） */
+html {
+  scrollbar-gutter: stable;
+}
 html,
 body {
   margin: 0;
