@@ -28,6 +28,8 @@
   --radius: 8px;
   --radius-sm: 5px;
   --bar-h: 52px;
+  /* このアプリの上の帯の高さ（幅 700px 以上: タブ 56px + 線 1px。src/App.vue） */
+  --head-h: 57px;
 
   --font-sans: system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif;
   --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "DejaVu Sans Mono", monospace;
