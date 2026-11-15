@@ -485,7 +485,7 @@ const summary = computed(() => {
   }
   .left {
     position: sticky;
-    top: calc(var(--bar-h) + 12px);
+    top: calc(var(--head-h) + 12px);
   }
 }
 </style>
