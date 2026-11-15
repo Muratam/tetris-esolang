@@ -141,6 +141,9 @@ watch(
   user-select: none;
 }
 .numbers {
+  /* 印（絶対位置の帯）より上に番号を描く */
+  position: relative;
+  z-index: 1;
   margin: 0;
   padding: 8px 0.6ch 8px 0;
   font: inherit;
