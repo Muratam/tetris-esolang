@@ -6,9 +6,9 @@
 
 | 項目 | 場所 |
 |---|---|
-| 公開 | https://sagisawa.0am.jp/tetris/ （public: ログインなし。予定） |
+| 公開 | https://sagisawa.0am.jp/tetris/ （public: ログインなし） |
 | リポジトリ | GitHub `Muratam/tetris-esolang`（public、既定のブランチ master）。管理者AI のワーキングコピーは `/home/claude/tetris-esolang` |
-| push | 管理者AI はこのリポジトリ専用のデプロイキー（書き込み、ssh の Host `github-tetris`。murata の登録待ち）。ラボの `apps` は https の公開 URL で pull だけ（public なので読み取りのキーは要らない） |
+| push | 管理者AI はこのリポジトリ専用のデプロイキー（書き込み、ssh の Host `github-tetris`）。ラボの `apps` は https の公開 URL で pull だけ（public なので読み取りのキーは要らない） |
 | 動く場所 | ラボの `apps` の `/srv/tetris-esolang/`、compose のプロジェクト `tetris-esolang`、`10.44.135.10:3160` |
 
 リポジトリ名は `tetris-esolang`、URL のパスは `/tetris/`（`vite.config.ts` の `base`・`docker/nginx.conf`・`scripts/smoke.sh` で合わせる）。
@@ -33,10 +33,5 @@
 ## 3. 気づいたこと
 - 例の 2 つ目（コメントつきの cat）は、10 行目の `I:AA<<<` のために入力ではなく文字コード 1 を出し続ける（`I:<<<` なら cat になる）。例のコードは変えず、説明にそう書いた（修正するかは murata に聞く）
 
-## 4. 残作業（初回の配置。T380 の後）
-1. push 用のデプロイキーを登録し（murata）、`/home/claude/tetris-esolang` の origin を `git@github-tetris:Muratam/tetris-esolang.git` にする
-2. この変更を master にマージする（PR）
-3. ラボで clone: `incus exec apps -- git clone https://github.com/Muratam/tetris-esolang.git /srv/tetris-esolang`
-4. 初回のデプロイ: `incus exec apps -- /srv/tetris-esolang/scripts/deploy-lab.sh` → `incus exec apps -- /srv/tetris-esolang/scripts/smoke.sh http://10.44.135.10:3160`（Docker のイメージのビルドはここで初めて確認する）
-5. 公開: `sudo -n /usr/local/sbin/sagisawa-expose add tetris 10.44.135.10:3160 --kind public` → `scripts/smoke.sh https://sagisawa.0am.jp`
-6. `Muratam/sagisawa-admin` の `inventory.md` に追記する。ポータル・ホームのアプリの一覧（`Muratam/sagisawa` の `portal/home/src/apps.ts`）に載せるかは murata に聞く
+## 4. 残作業
+- なし（初回の配置・公開・`inventory.md` とアプリの一覧への追加は 11-15 に完了した。T380）。
