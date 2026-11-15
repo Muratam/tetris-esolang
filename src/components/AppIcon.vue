@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Font Awesome の CDN の代わりのインラインの SVG（github は GitHub の Octicons、ほかは線で描く）
-defineProps<{ name: "github" | "code" | "play" | "forward" }>();
+defineProps<{ name: "github" | "code" | "play" | "forward" | "back" | "first" | "pause" | "run" | "open" }>();
 </script>
 
 <template>
@@ -33,9 +33,51 @@ defineProps<{ name: "github" | "code" | "play" | "forward" }>();
       points="7 4 20 12 7 20"
       fill="currentColor"
     />
-    <template v-else>
+    <template v-else-if="name === 'forward'">
       <polyline points="13 17 18 12 13 7" />
       <polyline points="6 17 11 12 6 7" />
+    </template>
+    <polyline
+      v-else-if="name === 'back'"
+      points="15 18 9 12 15 6"
+    />
+    <template v-else-if="name === 'first'">
+      <polyline points="17 18 11 12 17 6" />
+      <line
+        x1="7"
+        y1="6"
+        x2="7"
+        y2="18"
+      />
+    </template>
+    <template v-else-if="name === 'pause'">
+      <line
+        x1="9"
+        y1="5"
+        x2="9"
+        y2="19"
+      />
+      <line
+        x1="15"
+        y1="5"
+        x2="15"
+        y2="19"
+      />
+    </template>
+    <template v-else-if="name === 'run'">
+      <polygon
+        points="4 5 13 12 4 19"
+        fill="currentColor"
+      />
+      <polygon
+        points="12 5 21 12 12 19"
+        fill="currentColor"
+      />
+    </template>
+    <template v-else>
+      <path d="M14 4h6v6" />
+      <path d="M20 4 11 13" />
+      <path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5" />
     </template>
   </svg>
 </template>

@@ -21,6 +21,7 @@
   --accent-soft: rgba(71, 200, 230, 0.12);
   --accent-ink: #06222a;
   --ok: #4fc38a;
+  --warn: #f0b445;
   --bad: #f26d6d;
   --bad-soft: rgba(242, 109, 109, 0.14);
 
@@ -130,6 +131,11 @@ code {
 .btn:active {
   background: var(--surface-2);
 }
+.btn-small {
+  min-height: 32px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+}
 .btn-primary {
   background: var(--accent);
   border-color: var(--accent);
@@ -210,6 +216,13 @@ code {
   font-size: 0.82rem;
   line-height: 1.5;
   color: var(--ink-sub);
+}
+
+/* スマホ: 入力の欄の字が 16px 未満だと、iOS が入力のときに画面を拡大する */
+@media (max-width: 600px) {
+  .textarea {
+    font-size: 16px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

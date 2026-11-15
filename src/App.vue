@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import AppIcon from "./components/AppIcon.vue";
+import ExamplesView from "./components/ExamplesView.vue";
+import HomeView from "./components/HomeView.vue";
 import SpecView from "./components/SpecView.vue";
 import TryView from "./components/TryView.vue";
-import { exampleCodes } from "./staticcode";
+import { app, type Page } from "./store";
 
-type Page = "home" | "try" | "specification" | "example";
-const page = ref<Page>("home");
 const tabs: { id: Page; label: string }[] = [
   { id: "try", label: "Try" },
   { id: "specification", label: "Specification" },
@@ -20,8 +19,8 @@ const tabs: { id: Page; label: string }[] = [
       <button
         type="button"
         class="brand"
-        :aria-current="page === 'home' ? 'page' : undefined"
-        @click="page = 'home'"
+        :aria-current="app.page === 'home' ? 'page' : undefined"
+        @click="app.page = 'home'"
       >
         Tetris Esolang
       </button>
@@ -34,8 +33,8 @@ const tabs: { id: Page; label: string }[] = [
           :key="t.id"
           type="button"
           class="tab"
-          :aria-current="page === t.id ? 'page' : undefined"
-          @click="page = t.id"
+          :aria-current="app.page === t.id ? 'page' : undefined"
+          @click="app.page = t.id"
         >
           {{ t.label }}
         </button>
@@ -52,43 +51,18 @@ const tabs: { id: Page; label: string }[] = [
   </header>
 
   <main class="main">
-    <section
-      v-if="page === 'home'"
-      class="hero"
-    >
-      <h1>Tetris Esolang</h1>
-      <p class="quiet">
-        created by
-        <a href="https://muratam.github.io">muratam</a>
-      </p>
-    </section>
+    <HomeView v-if="app.page === 'home'" />
 
     <!-- 書いたコードと実行の状態はタブを移っても残す（元の版と同じ） -->
     <TryView
-      v-show="page === 'try'"
-      :active="page === 'try'"
+      v-show="app.page === 'try'"
+      :active="app.page === 'try'"
     />
 
-    <SpecView v-if="page === 'specification' || page === 'home'" />
-
-    <section
-      v-if="page === 'example'"
-      class="panel"
-    >
-      <div class="panel-head">
-        <h2>example</h2>
-      </div>
-      <div class="examples">
-        <pre
-          v-for="(example, i) in exampleCodes"
-          :key="i"
-          class="code-block"
-        >{{ example }}</pre>
-      </div>
-    </section>
+    <SpecView v-if="app.page === 'specification'" />
+    <ExamplesView v-if="app.page === 'example'" />
   </main>
 </template>
-
 <style scoped>
 .bar {
   position: sticky;
@@ -171,20 +145,6 @@ const tabs: { id: Page; label: string }[] = [
   max-width: 1120px;
   margin: 0 auto;
   padding: 16px 16px 48px;
-}
-.hero {
-  display: grid;
-  gap: 4px;
-  padding: 12px 0 4px;
-}
-.hero h1 {
-  font-size: 1.6rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-}
-.examples {
-  display: grid;
-  gap: 12px;
 }
 @media (max-width: 480px) {
   .bar-inner {
