@@ -24,6 +24,7 @@
   - `npm run build`（`vue-tsc --noEmit` の型の確認と `vite build`。`dist/`）
   - 配信: `scripts/smoke.sh [ベースの URL]`（health が `{"ok":true}`、`/tetris/` と、それが読む `/tetris/assets/` の JS・CSS が 200、`/tetris` が `/tetris/` へ転送）。ラボでは `scripts/smoke.sh http://10.44.135.10:3160`、公開後は `scripts/smoke.sh https://sagisawa.0am.jp`
   - 画面: ブラウザで「試す」→「サンプルを読み込む」→「1000 ステップ実行」を押し、標準出力が `sample cat program input` になること
+- **リンクのカード（T410）**: Slack・X などでリンクを貼るとカードが出るように、`index.html` の head の先頭（charset・viewport のすぐ後）に OGP と Twitter Card を置く（og:site_name `sagisawa`・og:type `website`・og:locale `ja_JP`・og:title・og:description・og:url `https://sagisawa.0am.jp/tetris/`・og:image `https://sagisawa.0am.jp/tetris/og.png`〔1200×630、image/png、alt あり〕・twitter:card `summary_large_image`・twitter:title/description/image、name="description"、canonical。形は `Muratam/sagisawa` の `portal/home/src/og.ts` に揃えた）。画像は `public/og.png`（「試す」でサンプルを 4 ステップ進めた画面（盤面・コード・デバッグ）に、sagisawa のダークテーマの帯〔鷺の印・アプリ名・説明・URL〕を重ねたもの）。作り直しは `scripts/og-image.mjs`（先頭のコメントの手順: build → `vite preview` → `node scripts/og-image.mjs http://localhost:4173`。Playwright は管理者AI のサーバーの `~/.local/share/sagisawa-admin/screenshot`）。文言を変えたら `index.html` と `scripts/og-image.mjs` の CARD を合わせる。`scripts/smoke.sh` が head のメタ（URL は絶対 URL）と画像（200・image/png・1200×630）を確認する
 - **デプロイ**: master にマージしてから（PR）、ラボで `scripts/deploy-lab.sh`。`/tetris/api/health` が 200 を返すことを確認する。
   - murata: `sudo incus exec --project user-1001 apps -- /srv/tetris-esolang/scripts/deploy-lab.sh`
   - 管理者AI: `incus exec apps -- /srv/tetris-esolang/scripts/deploy-lab.sh`
