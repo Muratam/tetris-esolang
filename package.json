@@ -1,40 +1,33 @@
 {
-  "name": "typescript-vue-starter",
-  "version": "1.0.0",
+  "name": "tetris-esolang",
+  "version": "2.0.0",
   "private": true,
-  "description": "",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "build": "NODE_ENV='production' webpack",
-    "watch": "webpack --watch"
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "typecheck": "vue-tsc --noEmit",
+    "test": "vitest run"
   },
-  "keywords": [],
-  "author": {
-    "name": "Daniel Rosenwasser",
-    "url": "https://github.com/DanielRosenwasser"
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
   },
-  "license": "Apache-2.0",
   "dependencies": {
-    "vue": "^2.5.2",
-    "vue-class-component": "^6.0.0",
-    "vue-property-decorator": "^6.0.0",
-    "vue-router": "^3.0.1"
+    "vue": "^3.5.45"
   },
   "devDependencies": {
-    "tar": ">=4.4.2",
-    "bulma": "^0.7.4",
-    "css-loader": "^0.28.11",
-    "html-loader": "^0.5.5",
-    "html-webpack-plugin": "^3.2.0",
-    "pug": "^2.0.3",
-    "pug-plain-loader": "^1.0.0",
-    "sass": "^1.108.2",
-    "sass-loader": "^7.3.1",
-    "style-loader": "^0.23.1",
-    "ts-loader": "^2.0.3",
-    "typescript": "^2.7.2",
-    "vue-loader": "^12.0.3",
-    "vue-template-compiler": "^2.5.2",
-    "webpack": "^3.12.0"
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.6.6",
+    "@vitejs/plugin-vue": "^6.0.11",
+    "eslint": "^10.15.0",
+    "eslint-plugin-vue": "^10.12.1",
+    "globals": "^17.14.0",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.72.2",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.0",
+    "vue-tsc": "^3.3.14"
   }
 }
