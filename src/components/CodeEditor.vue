@@ -100,11 +100,11 @@ watch(
         v-model="model"
         class="input"
         wrap="off"
-        placeholder="your code here!!"
+        placeholder="ここにコードを書く"
         spellcheck="false"
         autocapitalize="off"
         autocomplete="off"
-        aria-label="code"
+        aria-label="コード"
         @scroll="onScroll"
       />
     </div>

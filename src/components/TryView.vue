@@ -159,7 +159,7 @@ watch(
 const summary = computed(() => {
   const s = view.value.step;
   if (view.value.status === "error") return "コードにエラーがあります（赤い行）。修正すると実行できます。";
-  if (!s) return "「Execute 1 Step」で 1 手ずつ、「連続実行」で続けて動かせます。";
+  if (!s) return "「1 ステップ実行」で 1 手ずつ、「連続実行」で続けて動かせます。";
   if (s.line === null) return `${s.index} ステップ目: 次に置く行が無いので、何もしません。`;
   const pl = s.placement;
   if (!pl) return `${s.index} ステップ目: 実行は終わっています。`;
@@ -175,14 +175,14 @@ const summary = computed(() => {
 <template>
   <section class="panel try">
     <div class="panel-head">
-      <h2>Try Tetris Esolang Now !!</h2>
+      <h2>Tetris Esolang を試す</h2>
       <button
         type="button"
         class="btn"
         @click="trySample"
       >
         <AppIcon name="code" />
-        Try Sample
+        サンプルを読み込む
       </button>
     </div>
     <div class="cols">
@@ -215,7 +215,7 @@ const summary = computed(() => {
               @click="execute1Step"
             >
               <AppIcon name="play" />
-              Execute 1 Step
+              1 ステップ実行
             </button>
             <button
               type="button"
@@ -233,7 +233,7 @@ const summary = computed(() => {
               @click="executeAllStep"
             >
               <AppIcon name="forward" />
-              Execute 1000 Steps
+              1000 ステップ実行
             </button>
           </div>
           <div
@@ -276,7 +276,7 @@ const summary = computed(() => {
       </div>
       <div class="side">
         <div class="field">
-          <span class="field-label">code<span class="marks"><i class="mk current" />いま置いた行 <i class="mk previous" />直前の行 <i class="mk next" />次の行</span></span>
+          <span class="field-label">コード<span class="marks"><i class="mk current" />いま置いた行 <i class="mk previous" />直前の行 <i class="mk next" />次の行</span></span>
           <CodeEditor
             v-model="app.code"
             :current="view.current"
@@ -288,27 +288,27 @@ const summary = computed(() => {
         </div>
         <div class="io">
           <label class="field">
-            <span class="field-label">stdin</span>
+            <span class="field-label">標準入力</span>
             <textarea
               v-model="app.stdin"
               class="textarea"
-              placeholder="standard input"
+              placeholder="プログラムに渡す入力"
               spellcheck="false"
               autocapitalize="off"
             />
           </label>
           <label class="field">
-            <span class="field-label">stdout</span>
+            <span class="field-label">標準出力</span>
             <textarea
               v-model="stdout"
               class="textarea"
-              placeholder="standard output"
+              placeholder="プログラムの出力"
               readonly
             />
           </label>
         </div>
         <div class="field">
-          <span class="field-label">debug</span>
+          <span class="field-label">デバッグ</span>
           <DebugTable
             class="dbg-box"
             :status="view.status"
@@ -322,9 +322,9 @@ const summary = computed(() => {
           <textarea
             v-model="debugMessage"
             class="textarea raw"
-            placeholder="debug message"
+            placeholder="実行系のメッセージ"
             readonly
-            aria-label="debug message（実行系の出力のまま）"
+            aria-label="実行系のメッセージ（そのままの表示）"
           />
         </div>
       </div>

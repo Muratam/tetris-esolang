@@ -13,7 +13,7 @@ import { app, openInTry } from "../store";
       テトリミノを動かして積み、行をそろえて消すと、消えた行のミノに書かれた文字が命令として実行されます。
     </p>
     <p class="quiet by">
-      created by <a href="https://muratam.github.io">muratam</a>
+      作者: <a href="https://muratam.github.io">muratam</a>
     </p>
     <div class="cta">
       <button
@@ -22,7 +22,7 @@ import { app, openInTry } from "../store";
         @click="openInTry(samples[0], true)"
       >
         <AppIcon name="play" />
-        Try でサンプルを動かす
+        サンプルを試す
       </button>
       <button
         type="button"
@@ -97,7 +97,7 @@ import { app, openInTry } from "../store";
           @click="openInTry(s, true)"
         >
           <AppIcon name="play" />
-          Try で実行
+          実行する
         </button>
       </li>
     </ul>

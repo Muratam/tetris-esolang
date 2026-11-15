@@ -24,10 +24,10 @@ export type Sample = {
   description: string;
   /** example に出すコード（Python のスクリプトはそのまま見せる） */
   shown: string;
-  /** Try で開くコード */
+  /** 試す画面で開くコード */
   code: string;
   stdin: string;
-  /** Try で実行するときの速さ（長いものは最速） */
+  /** 試す画面で実行するときの速さ（長いものは最速） */
   speed?: "fast" | "max";
 };
 
@@ -63,7 +63,7 @@ export const samples: Sample[] = [
     id: "hello",
     short: "「Hello, World!」を出力します（約 1 万 3 千行。最速で実行）。",
     title: "Hello, World!（Python で生成）",
-    description: "「Hello, World!」を出力する Tetris Esolang のコードを生成する Python のスクリプトです。文字コードの数だけ 1 を足す行の組を並べます。「Try で開く」では、このスクリプトと同じ手順で生成したコード（約 1 万 3 千行）を開きます。",
+    description: "「Hello, World!」を出力する Tetris Esolang のコードを生成する Python のスクリプトです。文字コードの数だけ 1 を足す行の組を並べます。「開く」と「実行」では、このスクリプトと同じ手順で生成したコード（約 1 万 3 千行）を開きます。",
     shown: exampleCodes[3],
     code: helloWorldFromScript(exampleCodes[3]),
     stdin: "",

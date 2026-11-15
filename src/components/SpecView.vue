@@ -44,7 +44,7 @@ const walkthrough = samples.find((s) => s.id === "cat")!;
             <td>出現するミノの種類（行の 1 文字目）</td>
           </tr>
           <tr>
-            <td>use-order</td>
+            <td>use-order（命令の有無）</td>
             <td><code>:</code> / <code>.</code></td>
             <td><code>:</code> は命令の書かれたミノ、<code>.</code> は何も書かれていない（XXXX の）ミノ</td>
           </tr>
@@ -67,7 +67,7 @@ const walkthrough = samples.find((s) => s.id === "cat")!;
       </table>
       <div>
         <p class="cap">
-          BNF
+          BNF（文法）
         </p>
         <pre class="code-block">{{ tetrisBNF }}</pre>
         <p class="cap">
@@ -151,7 +151,7 @@ const walkthrough = samples.find((s) => s.id === "cat")!;
         @click="openInTry(walkthrough)"
       >
         <AppIcon name="open" />
-        Try で開く
+        試す画面で開く
       </button>
     </div>
     <div class="grid2">
