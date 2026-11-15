@@ -1,0 +1,13 @@
+name: tetris-esolang
+
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    # シークレットは持たない。書けるのは /tmp（nginx の pid と一時ファイル）だけ
+    read_only: true
+    tmpfs:
+      - /tmp
+    ports:
+      # 既定はホストの 127.0.0.1 のみ。ラボでは .env の APP_BIND をコンテナの内部アドレス（10.44.135.10）にする。0.0.0.0 にしない
+      - "${APP_BIND:-127.0.0.1}:3160:3160"

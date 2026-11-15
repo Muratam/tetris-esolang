@@ -93,6 +93,8 @@ export class TetrisInterpreter {
       if (!result[lastNumber]) result[lastNumber] = [];
       if (code.match(/^-?\d+:/)) {
         let parsed = parseInt(code);
+        // 元の版のまま（NaN との比較は常に true。正規表現で数字を確認した後なので parseInt は NaN にならない）
+        // @ts-expect-error TS2845
         this.assert(parsed !== NaN, lineNumber, `ラベルの数値をパース出来ません`);
         this.assert(result[parsed] === undefined, lineNumber, "ラベルが重複しています");
         numbers.push(parsed);
