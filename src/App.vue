@@ -7,9 +7,9 @@ import TryView from "./components/TryView.vue";
 import { app, type Page } from "./store";
 
 const tabs: { id: Page; label: string }[] = [
-  { id: "try", label: "Try" },
-  { id: "specification", label: "Specification" },
-  { id: "example", label: "example" },
+  { id: "try", label: "試す" },
+  { id: "specification", label: "仕様" },
+  { id: "example", label: "例" },
 ];
 </script>
 

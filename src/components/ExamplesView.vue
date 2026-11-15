@@ -19,7 +19,7 @@ import { openInTry } from "../store";
           @click="openInTry(s)"
         >
           <AppIcon name="open" />
-          Try で開く
+          開く
         </button>
         <button
           type="button"
@@ -38,7 +38,7 @@ import { openInTry } from "../store";
       v-if="s.stdin"
       class="quiet stdin"
     >
-      Try で開くときの標準入力: <code>{{ s.stdin }}</code>
+      開いたときの標準入力: <code>{{ s.stdin }}</code>
     </p>
     <pre class="code-block ex">{{ s.shown }}</pre>
   </section>
